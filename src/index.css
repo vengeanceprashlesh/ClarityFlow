@@ -1,103 +1,183 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Neural-inspired color system with psychological depth */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Base neural network colors */
+    --synaptic-void: 8 8 20;
+    --neural-pulse: 25 25 50;
+    --cognition-glow: 45 45 80;
+    --memory-trace: 120 120 180;
+    --thought-stream: 160 160 220;
+    
+    /* Emotional state colors */
+    --anxiety-spike: 220 38 127;
+    --depression-depth: 15 23 42;
+    --clarity-peak: 59 130 246;
+    --breakthrough-moment: 34 197 94;
+    --reflection-surface: 168 85 247;
+    
+    /* Interface colors */
+    --background: var(--synaptic-void);
+    --foreground: 248 250 252;
+    --card: var(--neural-pulse);
+    --card-foreground: 248 250 252;
+    --primary: var(--reflection-surface);
+    --primary-foreground: 15 23 42;
+    --secondary: var(--cognition-glow);
+    --secondary-foreground: 248 250 252;
+    --muted: var(--neural-pulse);
+    --muted-foreground: 148 163 184;
+    --accent: var(--clarity-peak);
+    --accent-foreground: 15 23 42;
+    --destructive: var(--anxiety-spike);
+    --destructive-foreground: 248 250 252;
+    --border: var(--neural-pulse);
+    --input: var(--neural-pulse);
+    --ring: var(--reflection-surface);
+    --radius: 0.75rem;
   }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, 
+      rgb(var(--synaptic-void)) 0%, 
+      rgb(var(--neural-pulse)) 50%, 
+      rgb(var(--cognition-glow)) 100%);
+    background-attachment: fixed;
+    color: rgb(var(--foreground));
+    overflow-x: hidden;
+  }
+  
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+/* Neural animation keyframes */
+@keyframes synaptic-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
   }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
 
-  body {
-    @apply bg-background text-foreground;
+@keyframes neural-flow {
+  0% {
+    background-position: 0% 50%;
   }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes thought-ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes mirror-fracture {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  25% {
+    clip-path: polygon(0 0, 80% 20%, 90% 80%, 10% 100%);
+  }
+  50% {
+    clip-path: polygon(20% 0, 100% 10%, 80% 90%, 0 80%);
+  }
+  75% {
+    clip-path: polygon(10% 20%, 90% 0, 100% 80%, 20% 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes cognitive-shift {
+  0% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+  25% {
+    filter: hue-rotate(90deg) saturate(1.2);
+  }
+  50% {
+    filter: hue-rotate(180deg) saturate(0.8);
+  }
+  75% {
+    filter: hue-rotate(270deg) saturate(1.1);
+  }
+  100% {
+    filter: hue-rotate(360deg) saturate(1);
+  }
+}
+
+/* Utility classes */
+.neural-gradient {
+  background: linear-gradient(270deg, 
+    rgb(var(--reflection-surface)), 
+    rgb(var(--clarity-peak)), 
+    rgb(var(--breakthrough-moment))
+  );
+  background-size: 400% 400%;
+  animation: neural-flow 8s ease-in-out infinite;
+}
+
+.synaptic-glow {
+  box-shadow: 
+    0 0 20px rgba(var(--reflection-surface), 0.3),
+    0 0 40px rgba(var(--clarity-peak), 0.2),
+    inset 0 0 20px rgba(var(--neural-pulse), 0.1);
+}
+
+.mirror-surface {
+  background: linear-gradient(45deg, 
+    rgba(var(--foreground), 0.1), 
+    rgba(var(--reflection-surface), 0.2)
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(var(--foreground), 0.1);
+}
+
+.fractured {
+  animation: mirror-fracture 3s ease-in-out infinite;
+}
+
+.neural-pulse {
+  animation: synaptic-pulse 2s ease-in-out infinite;
+}
+
+.thought-wave::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(var(--reflection-surface), 0.6) 0%, transparent 70%);
+  animation: thought-ripple 3s ease-out infinite;
+}
+
+.cognitive-mode {
+  animation: cognitive-shift 10s linear infinite;
 }
