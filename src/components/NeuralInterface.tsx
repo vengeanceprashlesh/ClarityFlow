@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Brain, Zap, Eye, Heart, Lightbulb, Activity } from 'lucide-react';
+import { Brain, Zap, Eye, Heart, Lightbulb, Activity, Settings } from 'lucide-react';
 import { PsycheMirror } from './PsycheMirror';
 import { ThoughtStream } from './ThoughtStream';
 import { CognitiveFramework } from './CognitiveFramework';
