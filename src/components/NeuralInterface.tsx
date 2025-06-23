@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Brain, Zap, Eye, Heart, Lightbulb, Activity, Settings } from 'lucide-react';
+import { Brain, Zap, Eye, Heart, Lightbulb, Activity, Settings, Sparkles } from 'lucide-react';
 import { PsycheMirror } from './PsycheMirror';
 import { ThoughtStream } from './ThoughtStream';
 import { CognitiveFramework } from './CognitiveFramework';
@@ -7,14 +7,58 @@ import { MemoryLoopVisualizer } from './MemoryLoopVisualizer';
 import { CognitiveCalibration } from './CognitiveCalibration';
 import { EmotionDecoder } from './EmotionDecoder';
 import { AmbientNeuroFeedback } from './AmbientNeuroFeedback';
+import { ProgressBar } from './ui/ProgressBar';
+import { SessionRecap } from './SessionRecap';
 
 export const NeuralInterface = () => {
   const [currentState, setCurrentState] = useState('observing');
   const [emotionalState, setEmotionalState] = useState('calm');
+  const [initialEmotionalState, setInitialEmotionalState] = useState('calm');
+  const [unlockedTool, setUnlockedTool] = useState('CBT Reframing');
   const [interactionCount, setInteractionCount] = useState(0);
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const [introspectionDepth, setIntrospectionDepth] = useState(50);
   const [isUserActive, setIsUserActive] = useState(false);
+  const [stage, setStage] = useState(0);
+  const [sessionFinished, setSessionFinished] = useState(false);
+  const stages = [
+    'Awareness',
+    'Introspection',
+    'Insight',
+    'Reframe',
+    'Reflection'
+  ];
+  const stageCount = stages.length;
+  const clarityPercent = Math.round(((stage + 1) / stageCount) * 100);
+
+  const onboarding = [
+    {
+      title: 'Emotion Decoder',
+      desc: "We're starting by checking in with your mood. This helps us guide your journey.",
+    },
+    {
+      title: 'Psyche Mirror',
+      desc: 'Reflect on this question. Your answer will help clarify your thoughts.'
+    },
+    {
+      title: 'Insight',
+      desc: "Here's what your thoughts reveal. Notice any patterns?"
+    },
+    {
+      title: 'Cognitive Calibration',
+      desc: (
+        <>
+          We're tuning your clarity.
+          <br />
+          Notice how your answers shift your mental state.
+        </>
+      )
+    },
+    {
+      title: 'Session Recap',
+      desc: "Let's review your progress. See how far you've come in this session."
+    }
+  ];
 
   const psychStates = {
     observing: { color: 'from-blue-500 to-purple-600', intensity: 0.3 },
@@ -23,6 +67,16 @@ export const NeuralInterface = () => {
     breakthrough: { color: 'from-green-400 to-blue-500', intensity: 1.0 },
     integrating: { color: 'from-indigo-500 to-purple-700', intensity: 0.5 }
   };
+
+  const goToNextStage = () => setStage(s => Math.min(stageCount - 1, s + 1));
+  const goToPrevStage = () => setStage(s => Math.max(0, s - 1));
+
+  // Capture the initial emotional state
+  useEffect(() => {
+    if (stage === 0) {
+      setInitialEmotionalState(emotionalState);
+    }
+  }, [stage, emotionalState]);
 
   // Adaptive state changes based on user interaction patterns
   useEffect(() => {
@@ -83,14 +137,21 @@ export const NeuralInterface = () => {
 
   return (
     <div className={`min-h-screen relative overflow-hidden bg-gradient-to-br transition-all duration-1000 ${getBackgroundGradient()}`}>
-      
+      {/* Progress Bar */}
+      <div className="w-full fixed top-0 left-0 z-50">
+        <ProgressBar 
+          percent={clarityPercent} 
+          stage={stage} 
+          stages={stages} 
+          label={`Cognitive Clarity: ${clarityPercent}%`}
+        />
+      </div>
       {/* Ambient Neuro-Feedback Layer */}
       <AmbientNeuroFeedback 
         emotionalState={emotionalState}
         introspectionDepth={introspectionDepth}
         isUserActive={isUserActive}
       />
-
       {/* Neural Network Background */}
       <div className="absolute inset-0 opacity-20">
         <div className="neural-network-bg w-full h-full">
@@ -108,150 +169,108 @@ export const NeuralInterface = () => {
           ))}
         </div>
       </div>
-
-      {/* Main Interface */}
-      <div className="relative z-10 flex flex-col min-h-screen">
-        {/* Adaptive Neural Header */}
-        <header className={`p-6 backdrop-blur-md border-b transition-all duration-700 ${
-          emotionalState === 'overwhelmed' ? 'bg-red-900/20 border-red-500/20' :
-          emotionalState === 'calm' ? 'bg-blue-900/20 border-blue-500/20' :
-          emotionalState === 'anxious' ? 'bg-orange-900/20 border-orange-500/20' :
-          'bg-black/20 border-white/10'
-        }`}>
-          <div className="flex items-center justify-between max-w-7xl mx-auto">
-            <div className="flex items-center space-x-3">
-              <div className="relative">
-                <Brain className={`w-8 h-8 transition-colors duration-500 ${
-                  emotionalState === 'overwhelmed' ? 'text-red-400' :
-                  emotionalState === 'calm' ? 'text-cyan-400' :
-                  emotionalState === 'energized' ? 'text-purple-400' :
-                  'text-purple-400'
-                }`} />
-                <div className="absolute inset-0 blur-md opacity-50" 
-                     style={{ 
-                       backgroundColor: emotionalState === 'overwhelmed' ? '#ef4444' :
-                                      emotionalState === 'calm' ? '#22d3ee' :
-                                      emotionalState === 'energized' ? '#a855f7' :
-                                      '#a855f7'
-                     }} />
-              </div>
-              <div>
-                <h1 className="text-xl font-semibold text-white mono">SYNAPTIC</h1>
-                <p className="text-xs text-purple-300 mono">Neural Cognitive Control Center</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <div className="text-right">
-                <div className="text-sm text-purple-300 mono">State: {currentState}</div>
-                <div className="text-xs text-gray-400 mono">Depth: {introspectionDepth}%</div>
-                <div className="text-xs mono" style={{ 
-                  color: emotionalState === 'overwhelmed' ? '#ef4444' :
-                         emotionalState === 'calm' ? '#22d3ee' :
-                         emotionalState === 'energized' ? '#a855f7' :
-                         '#9ca3af'
-                }}>
-                  Emotion: {emotionalState}
-                </div>
-              </div>
-              <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${psychStates[currentState as keyof typeof psychStates].color} neural-pulse`}></div>
-            </div>
+      {/* Main Interface: Stepper Flow */}
+      <div className="relative z-10 flex flex-col min-h-screen items-center justify-center p-4 pt-28">
+        {/* Onboarding/Tooltip Modal */}
+        <div className="mb-8">
+          <div className="bg-black/70 rounded-lg p-4 shadow-lg text-center max-w-md mx-auto">
+            <h2 className="text-lg font-bold text-purple-200 mb-2">{onboarding[stage].title}</h2>
+            <p className="text-sm text-purple-100">{onboarding[stage].desc}</p>
           </div>
-        </header>
-
-        {/* Central Processing Area */}
-        <main className="flex-1 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6 max-w-7xl mx-auto">
-            
-            {/* Row 1: Core Modules */}
-            <div className="lg:col-span-1">
-              <PsycheMirror 
-                isActive={activeNode === 'mirror'} 
-                onInteract={() => handleInteraction('mirror')}
-                currentState={currentState}
-              />
-            </div>
-
-            <div className="lg:col-span-1">
-              <ThoughtStream 
-                isActive={activeNode === 'stream'} 
+        </div>
+        {/* Stage Content */}
+        <div className="w-full max-w-2xl flex flex-col items-center">
+          {stage === 0 && (
+            <EmotionDecoder
+              isActive={true}
+              onInteract={() => handleInteraction('emotion')}
+              onEmotionChange={setEmotionalState}
+              currentEmotion={emotionalState}
+            />
+          )}
+          {stage === 1 && (
+            <PsycheMirror
+              isActive={true}
+              onInteract={() => handleInteraction('mirror')}
+              currentState={currentState}
+              emotionalState={emotionalState}
+            />
+          )}
+          {stage === 2 && (
+            <>
+              <ThoughtStream
+                isActive={true}
                 onInteract={() => handleInteraction('stream')}
                 interactionCount={interactionCount}
+                emotionalState={emotionalState}
               />
-            </div>
-
-            <div className="lg:col-span-1">
-              <CognitiveFramework 
-                isActive={activeNode === 'framework'} 
-                onInteract={() => handleInteraction('framework')}
-                currentState={currentState}
-              />
-            </div>
-
-            {/* Row 2: Advanced Modules */}
-            <div className="lg:col-span-1">
               <MemoryLoopVisualizer
                 isActive={activeNode === 'memory'}
                 onInteract={() => handleInteraction('memory')}
                 emotionalState={emotionalState}
               />
+            </>
+          )}
+          {stage === 3 && (
+            <CognitiveCalibration
+              isActive={true}
+              onInteract={() => handleInteraction('calibration')}
+              emotionalState={emotionalState}
+            />
+          )}
+          {stage === 4 && (
+            <CognitiveFramework
+              isActive={true}
+              onInteract={() => handleInteraction('framework')}
+              emotionalState={emotionalState}
+            />
+          )}
+          {stage === 4 && !sessionFinished && (
+            <SessionRecap
+              initialMood={initialEmotionalState}
+              finalMood={emotionalState}
+              unlockedTool={unlockedTool}
+              insightsCount={5} // Mock data
+              thoughtLoopsBroken={3} // Mock data
+              onContinue={() => setSessionFinished(true)}
+              onSave={() => alert('Session saved!')}
+              isFinalStage={true}
+            />
+          )}
+          {sessionFinished && (
+            <div className="w-full max-w-xl mx-auto p-12 flex flex-col items-center text-center animate-fade-in-up font-manrope">
+              <Sparkles className="w-16 h-16 text-yellow-300 mb-6" />
+              <h2 className="text-3xl font-bold text-white mb-4">Thank you for completing your session!</h2>
+              <p className="text-lg text-purple-200 mb-8">Your journey to clarity continues. Come back anytime you need a mental reset or a moment of reflection.</p>
+              <button
+                onClick={() => { setStage(0); setSessionFinished(false); }}
+                className="py-4 px-8 rounded-2xl bg-purple-600 text-white font-bold shadow-lg hover:bg-purple-500 transition-colors text-lg"
+              >
+                Start New Session
+              </button>
             </div>
+          )}
+        </div>
 
-            <div className="lg:col-span-1">
-              <CognitiveCalibration
-                isActive={activeNode === 'calibration'}
-                onInteract={() => handleInteraction('calibration')}
-                onDepthChange={setIntrospectionDepth}
-                emotionalState={emotionalState}
-              />
-            </div>
-
-            <div className="lg:col-span-1">
-              <EmotionDecoder
-                isActive={activeNode === 'emotion'}
-                onInteract={() => handleInteraction('emotion')}
-                onEmotionChange={setEmotionalState}
-                currentEmotion={emotionalState}
-              />
-            </div>
+        {/* Centralized Navigation */}
+        {stage !== 4 && (
+          <div className="flex w-64 space-x-4 mt-8">
+            <button 
+              onClick={goToPrevStage}
+              disabled={stage === 0}
+              className="flex-1 py-3 rounded-2xl bg-gray-700 text-white shadow-md hover:bg-gray-600 transition-colors disabled:opacity-50"
+            >
+              Back
+            </button>
+            <button 
+              onClick={goToNextStage}
+              className="flex-1 py-3 rounded-2xl bg-purple-600 text-white shadow-md hover:bg-purple-500 transition-colors disabled:opacity-50"
+              disabled={stage === stageCount - 1}
+            >
+              {stage === stageCount - 1 ? 'Finish' : 'Next'}
+            </button>
           </div>
-
-          {/* Enhanced Neural Navigation */}
-          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-20">
-            <div className={`flex space-x-3 backdrop-blur-md rounded-full p-4 border transition-all duration-500 ${
-              emotionalState === 'overwhelmed' ? 'bg-red-900/40 border-red-500/20' :
-              emotionalState === 'calm' ? 'bg-blue-900/40 border-blue-500/20' :
-              'bg-black/40 border-white/10'
-            }`}>
-              {[
-                { icon: Eye, label: 'Observe', action: 'mirror' },
-                { icon: Zap, label: 'Process', action: 'stream' },
-                { icon: Lightbulb, label: 'Integrate', action: 'framework' },
-                { icon: Activity, label: 'Memory', action: 'memory' },
-                { icon: Settings, label: 'Calibrate', action: 'calibration' },
-                { icon: Heart, label: 'Emotion', action: 'emotion' }
-              ].map(({ icon: Icon, label, action }) => (
-                <button
-                  key={action}
-                  onClick={() => handleInteraction(action)}
-                  className={`group relative p-3 rounded-full transition-all duration-300 ${
-                    activeNode === action 
-                      ? 'bg-purple-500/50 text-white scale-110' 
-                      : 'hover:bg-white/10 text-gray-300 hover:text-white'
-                  }`}
-                >
-                  <Icon className="w-5 h-5" />
-                  <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity mono">
-                    {label}
-                  </div>
-                  {activeNode === action && (
-                    <div className="absolute inset-0 bg-purple-400 rounded-full blur-lg opacity-50 animate-pulse"></div>
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-        </main>
+        )}
       </div>
     </div>
   );

@@ -1,73 +1,67 @@
-# Welcome to your Lovable project
 
-## Project info
+# 🧠 ClarityFlow — Mental Health Companion Powered by AI
 
-**URL**: https://lovable.dev/projects/e766977c-7043-44b8-b7e2-329206a3db34
+ClarityFlow is an interactive, AI-powered emotional introspection and mood regulation app designed for Gen-Z and young adults struggling with anxiety, stress, or emotional overwhelm.
 
-## How can I edit this code?
+> “It’s not just therapy. It’s self-discovery, reimagined.”
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🌈 What is ClarityFlow?
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e766977c-7043-44b8-b7e2-329206a3db34) and start prompting.
+ClarityFlow acts as a **real-time thought mirror** for users. It guides them through emotional self-reflection, thought pattern analysis, and actionable CBT-based frameworks — using intuitive UI, soft animations, and conversational AI.
 
-Changes made via Lovable will be committed automatically to this repo.
+This project is built with 💜 for those who:
+- Struggle with emotional burnout or cognitive overload
+- Want to develop clarity, resilience, and focus
+- Crave a vibe-first interface, not a cold clinical form
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## ✨ Core Features
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+| 🧩 Module | Description |
+|----------|-------------|
+| 🟢 **Emotion Decoder** | Check-in with your current mood, emotional patterns, and self-awareness. |
+| 🔮 **Psyche Mirror** | Reflect on deep prompts to explore the source of emotional tension. |
+| ⚡ **Thought Stream** | Transform reflections into patterns and AI-tagged insights (e.g., “overthinking” → “avoidance”). |
+| 🧠 **Cognitive Calibration** | View emotional sensitivity, cognitive load, and introspection depth in real-time. |
+| 🔓 **Cognitive Framework Unlocks** | AI recommends CBT, REBT, DBT tools based on user answers. |
+| 📊 **Clarity Recap** | End with a beautiful summary of your journey: thoughts, patterns, clarity growth. |
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 💡 Why This Project Matters
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+> Most mental health apps are either too clinical or too gamified. ClarityFlow combines both worlds.
 
-# Step 3: Install the necessary dependencies.
-npm i
+We’re building for the *inner world* of digital natives:
+- Emotion-aware UX
+- Real-time introspection feedback
+- Light but powerful AI insights
+- Accessibility-first design
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## 🛠️ Tech Stack
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- ⚛️ React Native (Expo)
+- 🎨 Tailwind + Framer Motion (via Reanimated)
+- 🧠 OpenAI GPT-4 API (for insights & reflection)
+- 🗂️ Firebase or Supabase (auth, journaling DB)
+- 🧱 Zustand or Redux (state management)
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🚀 Getting Started
 
-## What technologies are used for this project?
+```bash
+# 1. Clone the repo
+git clone https://github.com/yourusername/clarityflow.git
 
-This project is built with:
+# 2. Install dependencies
+cd clarityflow
+npm install
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/e766977c-7043-44b8-b7e2-329206a3db34) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# 3. Start app
+npx expo start
