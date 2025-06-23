@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Mirror, Sparkles, Layers } from 'lucide-react';
+import { Circle, Sparkles, Layers } from 'lucide-react';
 
 interface PsycheMirrorProps {
   isActive: boolean;
@@ -70,7 +70,7 @@ export const PsycheMirror = ({ isActive, onInteract, currentState }: PsycheMirro
           {/* Reflection Content */}
           <div className="relative z-10 p-6 h-full flex flex-col justify-between">
             <div className="flex items-center space-x-2 text-purple-300">
-              <Mirror className="w-5 h-5" />
+              <Circle className="w-5 h-5" />
               <span className="text-sm mono">Psyche Mirror</span>
               {isActive && <Sparkles className="w-4 h-4 animate-spin" />}
             </div>
