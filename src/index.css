@@ -60,7 +60,7 @@
   }
 }
 
-/* Neural animation keyframes */
+/* Enhanced Neural animation keyframes */
 @keyframes synaptic-pulse {
   0%, 100% {
     opacity: 0.3;
@@ -134,6 +134,45 @@
   }
 }
 
+/* New ambient animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.4;
+  }
+  33% {
+    transform: translateY(-10px) rotate(120deg);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(5px) rotate(240deg);
+    opacity: 0.6;
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes neural-connection {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 100;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
 /* Utility classes */
 .neural-gradient {
   background: linear-gradient(270deg, 
@@ -180,4 +219,39 @@
 
 .cognitive-mode {
   animation: cognitive-shift 10s linear infinite;
+}
+
+/* Enhanced emotional state animations */
+.heartbeat-pulse {
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+.anxiety-flutter {
+  animation: synaptic-pulse 0.8s ease-in-out infinite;
+}
+
+.calm-breathe {
+  animation: float 4s ease-in-out infinite;
+}
+
+.focus-sharp {
+  filter: brightness(1.1) contrast(1.1);
+}
+
+.distracted-blur {
+  filter: blur(1px);
+  opacity: 0.8;
+}
+
+/* Ambient particle system */
+.ambient-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float 6s ease-in-out infinite;
+}
+
+.neural-connection-line {
+  stroke-dasharray: 5, 5;
+  animation: neural-connection 3s ease-in-out infinite;
 }
